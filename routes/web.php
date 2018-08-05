@@ -25,4 +25,19 @@ Route::match(['get', 'post'], '/demothree', 'BlogController@demothree');
 Route::any('/demofour', 'BlogController@demofour');
 
 Route::resource('photos', 'PhotoController');
-Route::resource('admin/users', 'Admin\UsersController');
+
+
+Route::get('login', 'LoginController@index')->name('login');
+Route::get('logout', 'LoginController@logout');
+Route::post('login', 'LoginController@authenticate');
+
+//Route::resource('admin/user', 'Admin\UsersController');
+Route::prefix('admin')->middleware('auth')->group(function () {
+Route::resource('users', 'Admin\UsersController');
+});
+
+Route::get('/testlinenoti', 'BlogController@testlinenoti');
+Route::get('/testexcel', 'BlogController@testexcel');
+
+
+
